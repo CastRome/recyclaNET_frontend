@@ -1,0 +1,39 @@
+
+.HomeContainer{
+    background-color: rgb(225,225,225);
+    display: flex;
+    flex-wrap: wrap;
+    .ItemButtons{
+        display: flex;
+        justify-content: flex-end;
+        width: 97%;
+        padding: 10px;  
+    }
+    .ItemInfo{
+        background-color: rgb(255,255,255);
+        border:1px solid black;
+        border-radius: 8px;
+        margin: 15px;
+        padding: 5px;
+    }
+   
+@media (max-width: 600px) {
+    flex-direction: column;
+    .ItemCarousel{
+        width: 100%;
+    }
+    .ItemInfo{
+        width: 100%;
+    }
+  }
+  @media (min-width: 600px) {
+    .ItemCarousel{
+        width: 50%;
+    }
+    .ItemInfo{
+        width: 45%;
+    }
+  }
+
+ 
+}

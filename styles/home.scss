@@ -1,0 +1,83 @@
+body {
+  height: 100% !important;
+}
+.HomeContainer {
+  background-color: rgb(215, 215, 215);
+  // display: flex;
+  //flex-wrap: wrap;
+  .ItemButtons {
+    display: flex;
+    justify-content: flex-end;
+    width: 97%;
+    padding: 10px;
+  }
+  .ItemInfo {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
+    border-radius: 8px;
+    margin: 15px;
+    padding: 5px;
+    opacity: 0.9;
+  }
+  .ItemCarousel {
+    background-color: rgb(5, 5, 5);
+    overflow: hidden;
+  }
+  @media (max-width: 600px) {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    position: static;
+    img {
+      width: 100%;
+      height: 350px;
+      img {
+        opacity: 0.5;
+      }
+    }
+    .ItemCarousel {
+      visibility: hidden;
+      height: 10px;
+    }
+    .ItemInfo {
+      position: static;
+      width: 100%;
+    }
+    .ItemButtons {
+      position: static;
+    }
+    .footerContainer {
+      position: static;
+    }
+  }
+  @media (min-width: 600px) {
+    .ItemCarousel {
+      position: absolute;
+      width: 100%;
+      z-index: 1;
+    }
+    .ItemInfo {
+      position: absolute;
+      width: 45%;
+      z-index: 20;
+    }
+    .ItemButtons {
+      position: absolute;
+      z-index: 20;
+    }
+  }
+
+  @media (min-width: 1450px) {
+    display: flex;
+
+    .ItemCarousel {
+      width: 50%;
+      position: static;
+    }
+    .ItemInfo {
+      width: 45%;
+      height: 600px;
+      position: static;
+    }
+  }
+}

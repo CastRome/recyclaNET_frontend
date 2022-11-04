@@ -1,0 +1,19 @@
+.footerContainer {
+  background: rgb(136, 210, 98);
+  background: linear-gradient(
+    90deg,
+    rgba(136, 210, 98, 1) 9%,
+    rgba(69, 185, 226, 1) 20%,
+    rgba(107, 226, 46, 1) 31%,
+    rgba(183, 185, 183, 1) 39%,
+    rgba(198, 191, 191, 0.9976190305223652) 100%
+  );
+  position: absolute;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  z-index: 2;
+  width: 100%;
+}

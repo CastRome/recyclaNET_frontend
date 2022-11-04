@@ -1,0 +1,32 @@
+.SolicitudContainer {
+  padding: 10px;
+  margin: 10px;
+
+  .imgprev {
+    display: flex;
+    margin-top: 20px;
+    justify-content: flex-start;
+    column-gap: 10px;
+    row-gap: 20px;
+    flex-wrap: wrap;
+    img {
+      width: 100px;
+      height: 100px;
+    }
+    &__card {
+      display: flex;
+      flex-flow: column;
+      row-gap: 5px;
+      align-items: center;
+
+      & button {
+        width: 100px;
+        padding: 5px;
+        color: white;
+        background-color: black;
+        border-radius: 10px;
+        font-size: 10px;
+      }
+    }
+  }
+}
