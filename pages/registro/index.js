@@ -1,6 +1,9 @@
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import { useState } from 'react';
+import axios from 'axios';
+import { useJwt } from 'react-jwt';
+import { useState, useEffect } from 'react';
+import { format } from 'date-fns';
 import { Calendar } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import {
@@ -17,10 +20,6 @@ import {
 import Swal from 'sweetalert2';
 
 const Registro = () => {
-  const [file, setFile] = useState(new DataTransfer());
-  const [fileDataURL, setFileDataURL] = useState([]);
-  const [valueCalendar, setValueCalendar] = useState(null);
-
   const initialMaterials = [
     [
       { value: 'paper', label: 'Paper' },
@@ -32,68 +31,130 @@ const Registro = () => {
     ],
     [],
   ];
+
+  useEffect(() => {
+    // const isSSR = typeof window === "undefined";
+    // console.log(isSSR);
+    console.log('I am only being executed in the browser');
+    setFile(new DataTransfer());
+    setToken(localStorage.getItem('token'));
+  }, []);
+
+  const [file, setFile] = useState(null);
   const [dataTranser, setDataTransfer] = useState(initialMaterials);
+  const [fileDataURL, setFileDataURL] = useState([]);
+  const [valueCalendar, setValueCalendar] = useState(null);
+  const [token, setToken] = useState('');
+
+  const { isExpired } = useJwt(token);
 
   const form2 = useForm({
     initialValues: {
       hour: '',
-      directions: '',
+      direction: '',
       city: '',
     },
 
     validate: {
       hour: (value) => (value !== '' ? null : 'Invalid hour'),
-      directions: (value) => (value !== '' ? null : 'Invalid directions'),
+      direction: (value) => (value !== '' ? null : 'Invalid direction'),
       city: (value) => (value !== '' ? null : 'Invalid city'),
     },
   });
 
-  const handleSubmit = (values, who) => {
-    form2.reset();
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+  const handleSubmit = async (values) => {
+    // form2.reset();
 
-    console.log('SONIDO 1 2 3');
-    console.log(values);
+    const materials = dataTranser[1].map((item) => item.value);
 
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer);
-        toast.addEventListener('mouseleave', Swal.resumeTimer);
-      },
-    });
-    setFile(new DataTransfer());
-    setFileDataURL([]);
-
-    Toast.fire({
-      icon: 'success',
-      title: 'Signed in successfully',
-    });
-
-    if (1 == 2) {
-      const Toast2 = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer);
-          toast.addEventListener('mouseleave', Swal.resumeTimer);
-        },
+    console.log('file', file);
+    if (fileDataURL.length === 0 || materials.length === 0) {
+      Toast2.fire({
+        icon: 'error',
+        title: 'Please complete the information.',
       });
+      return;
+    }
+    console.log(' file.files', file.files);
+    console.log('SONIDO 1 2 3');
+    console.log('val', values);
+    const date = format(valueCalendar, 'dd/MM/yyyy');
+    const dataValues2 = {
+      ...values,
+      date,
+      // images: file.files,
+      materials,
+      state: 'pending',
+    };
+    const dataValues = new FormData();
 
+    dataValues.append('hour', values.hour);
+    dataValues.append('direction', values.direction);
+    dataValues.append('city', values.city);
+    dataValues.append('date', date);
+    dataValues.append('materials', materials);
+    dataValues.append('state', 'pending');
+
+    const fileSend = file.files;
+
+    for (let i = 0; i < fileSend.length; i++) {
+      dataValues.append(`file_${i}`, fileSend[i], fileSend[i].name);
+    }
+
+    console.log('dataValues', dataValues);
+    try {
+      const { data } = await axios.post(
+        //'https://recyclanet.herokuapp.com/api/requests',
+        'http://localhost:8080/api/requests',
+        dataValues,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+            withCredentials: true,
+          },
+        },
+      );
+      console.log('data', data);
+      Toast.fire({
+        icon: 'success',
+        title: 'Signed in successfully',
+      });
+    } catch {
       Toast2.fire({
         icon: 'error',
         title: 'Sign in error',
       });
     }
+    //  setFile(new DataTransfer());
+    // setFileDataURL([]);
+    // setDataTransfer(initialMaterials);
   };
 
   const handleChange = (event) => {
+    console.log('file', file);
     const imageArray = Array.from(event.target.files).map((fil) => {
       file.items.add(fil);
       return URL.createObjectURL(fil);
@@ -156,7 +217,7 @@ const Registro = () => {
             withAsterisk
             label="Direction"
             placeholder="false street 123"
-            {...form2.getInputProps('directions')}
+            {...form2.getInputProps('direction')}
           />
           <TransferList
             value={dataTranser}

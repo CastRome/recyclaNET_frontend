@@ -9,6 +9,7 @@ import slide6 from '../../public/img/Sld6.jpg';
 import slide7 from '../../public/img/Sld7.jpg';
 import slide8 from '../../public/img/Sld8.jpg';
 
+import axios from 'axios';
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import Router from 'next/router';
@@ -42,7 +43,6 @@ const Home = () => {
   useEffect(() => {
     localStorage.getItem('token') ? setLoggedIn(true) : null;
     setCarouselH(window.innerHeight - 100);
-    console.log(window.innerHeight);
   }, []);
 
   const form = useForm({
@@ -85,55 +85,108 @@ const Home = () => {
           : 'Invalid password',
     },
   });
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
 
-  const handleSubmit = (values, who) => {
+  const Toast2 = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    },
+  });
+  const handleSubmit = async (values, who) => {
     form2.reset();
     form.reset();
 
-    console.log('SONIDO 1 2 3');
-    console.log(values);
-
     setPopoverOpened(false);
     setPopover2Opened(false);
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer);
-        toast.addEventListener('mouseleave', Swal.resumeTimer);
-      },
-    });
 
-    Toast.fire({
-      icon: 'success',
-      title: 'Signed in successfully',
-    });
+    if (who === 1) {
+      if (values.email === '' && values.password === '') {
+        alert('Por favor llene el formulario antes de continuar');
+      } else {
+        try {
+          const user = {
+            email: values.email,
+            password: values.password,
+          };
 
-    setLoggedIn(true);
-    localStorage.setItem('token', 'data.data.token');
-    localStorage.setItem('rol', 'data.data.rol');
-    localStorage.setItem('email', 'data.data.email');
+          const { data } = await axios.post(
+            // 'https://recyclanet.herokuapp.com/auth/local/login',
+            'http://localhost:8080/auth/local/login',
+            user,
+          );
 
-    if (1 == 2) {
-      const Toast2 = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer);
-          toast.addEventListener('mouseleave', Swal.resumeTimer);
-        },
-      });
+          Toast.fire({
+            icon: 'success',
+            title: 'Signed in successfully',
+          });
+          localStorage.setItem('token', data.data.token);
+          localStorage.setItem('role', data.data.role);
+          localStorage.setItem('email', data.data.email);
 
-      Toast2.fire({
-        icon: 'error',
-        title: 'Sign in error',
-      });
+          setLoggedIn(true);
+        } catch (err) {
+          Toast2.fire({
+            icon: 'error',
+            title: 'Sign in error',
+          });
+        }
+      }
+    }
+    if (who === 2) {
+      if (values.email === '' && values.password === '') {
+        alert('Por favor llene el formulario antes de continuar');
+      } else {
+        try {
+          const user = {
+            name: values.name,
+            lastname: values.lastname,
+            email: values.email,
+            password: values.password,
+            city: values.city,
+            role: values.role,
+          };
+
+          const { data } = await axios.post(
+            //  'https://recyclanet.herokuapp.com/auth/local/signup',
+            // 'https://airbnbclonetop24.herokuapp.com/user/singin',
+            'http://localhost:8080/auth/local/signup',
+            user,
+          );
+
+          Toast.fire({
+            icon: 'success',
+            title: 'singed up successfully',
+          });
+          localStorage.setItem('token', data.data.token);
+          localStorage.setItem('role', data.data.role);
+          localStorage.setItem('email', data.data.email);
+
+          setLoggedIn(true);
+        } catch (err) {
+          //console.log(err.response.status);
+
+          Toast2.fire({
+            icon: 'error',
+            title: 'Sign in error',
+          });
+        }
+      }
     }
   };
 
