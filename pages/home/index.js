@@ -9,6 +9,7 @@ import slide6 from '../../public/img/Sld6.jpg';
 import slide7 from '../../public/img/Sld7.jpg';
 import slide8 from '../../public/img/Sld8.jpg';
 
+import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next';
 import axios from 'axios';
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -36,6 +37,10 @@ const Home = () => {
   const handleSolicitud = () => {
     const { pathname } = Router;
     Router.push('/registro');
+  };
+  const handleSolicitudLog = () => {
+    const { pathname } = Router;
+    Router.push('/requestlog');
   };
   const imgW = '100%';
   const imgH = '800';
@@ -136,8 +141,11 @@ const Home = () => {
             title: 'Signed in successfully',
           });
           localStorage.setItem('token', data.data.token);
+          setCookie('token', data.data.token);
           localStorage.setItem('role', data.data.role);
+          setCookie('role', data.data.role);
           localStorage.setItem('email', data.data.email);
+          setCookie('email', data.data.email);
 
           setLoggedIn(true);
         } catch (err) {
@@ -405,13 +413,23 @@ const Home = () => {
             <div>
               <Button
                 variant="gradient"
+                gradient={{ from: 'blue', to: 'green', deg: 105 }}
+                type="submit"
+                onClick={() => {
+                  handleSolicitudLog();
+                }}
+              >
+                my Request
+              </Button>
+              <Button
+                variant="gradient"
                 gradient={{ from: 'teal', to: 'blue', deg: 105 }}
                 type="submit"
                 onClick={() => {
                   handleSolicitud();
                 }}
               >
-                Realizar Solicitud
+                Create Request
               </Button>
               <Button
                 type="button"

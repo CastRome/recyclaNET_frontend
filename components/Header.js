@@ -1,12 +1,28 @@
 import Image from 'next/image';
 import bannerePic from '../public/img/reciclaje.webp';
+import Router from 'next/router';
 
 const Header = () => {
+  const handleHome = () => {
+    const { pathname } = Router;
+    Router.push('/home');
+  };
+
   return (
     <div>
       <div className="BannerContainer">
         <div className="BannerLogo">
-          <Image width={150} src={bannerePic} alt="Banner de reciclaje"></Image>
+          <a
+            onClick={() => {
+              handleHome();
+            }}
+          >
+            <Image
+              width={150}
+              src={bannerePic}
+              alt="Banner de reciclaje"
+            ></Image>
+          </a>
           <h1>Bienvenido a reciclaNET</h1>
         </div>
       </div>

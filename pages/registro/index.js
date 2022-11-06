@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { Calendar } from '@mantine/dates';
 import { useForm } from '@mantine/form';
+import Router from 'next/router';
 import {
   Popover,
   TextInput,
@@ -18,8 +19,10 @@ import {
   Image,
 } from '@mantine/core';
 import Swal from 'sweetalert2';
-
+import { useDispatch } from 'react-redux';
+import { addrequest } from '../../store/reducer/requestReducer';
 const Registro = () => {
+  const dispatch = useDispatch();
   const initialMaterials = [
     [
       { value: 'paper', label: 'Paper' },
@@ -89,7 +92,6 @@ const Registro = () => {
 
     const materials = dataTranser[1].map((item) => item.value);
 
-    console.log('file', file);
     if (fileDataURL.length === 0 || materials.length === 0) {
       Toast2.fire({
         icon: 'error',
@@ -97,17 +99,9 @@ const Registro = () => {
       });
       return;
     }
-    console.log(' file.files', file.files);
-    console.log('SONIDO 1 2 3');
-    console.log('val', values);
+
     const date = format(valueCalendar, 'dd/MM/yyyy');
-    const dataValues2 = {
-      ...values,
-      date,
-      // images: file.files,
-      materials,
-      state: 'pending',
-    };
+
     const dataValues = new FormData();
 
     dataValues.append('hour', values.hour);
@@ -123,7 +117,6 @@ const Registro = () => {
       dataValues.append(`file_${i}`, fileSend[i], fileSend[i].name);
     }
 
-    console.log('dataValues', dataValues);
     try {
       const { data } = await axios.post(
         //'https://recyclanet.herokuapp.com/api/requests',
@@ -137,15 +130,22 @@ const Registro = () => {
           },
         },
       );
-      console.log('data', data);
+
+      const { pathname } = Router;
+      //Router.push('/registro');
+
+      dispatch(addrequest(data));
+      Router.push('/ordenes');
+      //
+
       Toast.fire({
         icon: 'success',
-        title: 'Signed in successfully',
+        title: 'Request created successfully',
       });
     } catch {
       Toast2.fire({
         icon: 'error',
-        title: 'Sign in error',
+        title: 'Ups an error happend.',
       });
     }
     //  setFile(new DataTransfer());

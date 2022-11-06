@@ -1,0 +1,49 @@
+.CardSheetContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  .cardContainer {
+    width: 100%;
+    margin-left: 5px !important;
+  }
+}
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin-top: 15px;
+  margin-left: 30%;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px black;
+  border-radius: 8px;
+  box-shadow: 10px 10px 5px lightblue;
+  .MinContainer {
+    display: flex;
+    width: 40%;
+    justify-content: space-between;
+    label {
+      font-size: 20px;
+      padding: 0;
+      margin: 0;
+    }
+    p {
+      color: black;
+      padding: 0;
+      margin: 0;
+      font-size: 18px;
+    }
+  }
+  .imgContainer {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+    display: flex;
+  }
+}
+.ButtonContainer {
+  width: 40%;
+  margin-top: 15px;
+  margin-left: 45%;
+}
