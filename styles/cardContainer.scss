@@ -1,11 +1,13 @@
 .CardSheetContainer {
-  display: flex;
+  margin-left: 25%;
   width: 100%;
-  flex-direction: row;
-  flex-wrap: wrap;
   .cardContainer {
-    width: 100%;
     margin-left: 5px !important;
+  }
+  .cancelButton {
+    width: 200px;
+    margin-left: 15%;
+    margin-top: 5px;
   }
 }
 .cardContainer {

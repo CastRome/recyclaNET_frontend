@@ -20,7 +20,7 @@ const requestLog = () => {
       >
         Back
       </Button>
-      <CardSheet who={'user'} />
+      <CardSheet who={'recycler'} />
     </div>
   );
 };

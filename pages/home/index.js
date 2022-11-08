@@ -38,6 +38,10 @@ const Home = () => {
     const { pathname } = Router;
     Router.push('/registro');
   };
+  const handleTakeSolicitud = () => {
+    const { pathname } = Router;
+    Router.push('/requestacept');
+  };
   const handleSolicitudLog = () => {
     const { pathname } = Router;
     Router.push('/requestlog');
@@ -411,26 +415,54 @@ const Home = () => {
             </div>
           ) : (
             <div>
-              <Button
-                variant="gradient"
-                gradient={{ from: 'blue', to: 'green', deg: 105 }}
-                type="submit"
-                onClick={() => {
-                  handleSolicitudLog();
-                }}
-              >
-                my Request
-              </Button>
-              <Button
-                variant="gradient"
-                gradient={{ from: 'teal', to: 'blue', deg: 105 }}
-                type="submit"
-                onClick={() => {
-                  handleSolicitud();
-                }}
-              >
-                Create Request
-              </Button>
+              {localStorage.getItem('role') === 'user' ? (
+                <div>
+                  <Button
+                    variant="gradient"
+                    gradient={{ from: 'blue', to: 'green', deg: 105 }}
+                    type="submit"
+                    onClick={() => {
+                      handleSolicitudLog();
+                    }}
+                  >
+                    my Request
+                  </Button>
+                  <Button
+                    variant="gradient"
+                    gradient={{ from: 'blue', to: 'teal', deg: 105 }}
+                    type="submit"
+                    onClick={() => {
+                      handleSolicitud();
+                    }}
+                  >
+                    Create Request
+                  </Button>
+                </div>
+              ) : (
+                <div>
+                  <Button
+                    variant="gradient"
+                    gradient={{ from: 'blue', to: 'green', deg: 105 }}
+                    type="submit"
+                    onClick={() => {
+                      handleSolicitudLog();
+                    }}
+                  >
+                    Request in timerProgressBar
+                  </Button>
+                  <Button
+                    variant="gradient"
+                    gradient={{ from: 'blue', to: 'teal', deg: 105 }}
+                    type="submit"
+                    onClick={() => {
+                      handleTakeSolicitud();
+                    }}
+                  >
+                    Take Request
+                  </Button>
+                </div>
+              )}
+
               <Button
                 type="button"
                 variant="gradient"
