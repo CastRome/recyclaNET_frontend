@@ -5,9 +5,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import Image from 'next/image';
 import Card from '../../components/Card';
 import { Button } from '@mantine/core';
+import Router from 'next/router';
 const Orders = (props) => {
   const dataRequest = useSelector((state) => state.requestReducer.data);
-
+  const handleRedirect = () => {
+    const { pathname } = Router;
+    Router.push('/requestlog');
+    //
+  };
   return (
     <div>
       <Header />
@@ -19,19 +24,12 @@ const Orders = (props) => {
               <Button
                 variant="gradient"
                 gradient={{ from: 'teal', to: 'blue', deg: 105 }}
-                type="submit"
-              >
-                Submit
-              </Button>
-              <Button
                 type="button"
-                variant="gradient"
-                gradient={{ from: 'red', to: 'red' }}
                 onClick={() => {
-                  handleCancel(2);
+                  handleRedirect();
                 }}
               >
-                Cancel
+                go to my request
               </Button>
             </Button.Group>
           </div>

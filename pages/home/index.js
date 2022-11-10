@@ -46,6 +46,10 @@ const Home = () => {
     const { pathname } = Router;
     Router.push('/requestlog');
   };
+  const handleSolicitudProgress = () => {
+    const { pathname } = Router;
+    Router.push('/requestprogress');
+  };
   const imgW = '100%';
   const imgH = '800';
 
@@ -445,10 +449,10 @@ const Home = () => {
                     gradient={{ from: 'blue', to: 'green', deg: 105 }}
                     type="submit"
                     onClick={() => {
-                      handleSolicitudLog();
+                      handleSolicitudProgress();
                     }}
                   >
-                    Request in timerProgressBar
+                    Request in Progress
                   </Button>
                   <Button
                     variant="gradient"

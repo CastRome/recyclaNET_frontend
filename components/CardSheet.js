@@ -3,6 +3,7 @@ import axios from 'axios';
 import Card from './Card';
 import { Button } from '@mantine/core';
 import Swal from 'sweetalert2';
+import Router from 'next/router';
 
 const CardSheet = ({ who }) => {
   const [dataCard, setDataCard] = useState({});
@@ -60,10 +61,36 @@ const CardSheet = ({ who }) => {
       });
     }
   };
-  const handleClick = async (id) => {
-    console.log(id);
+  const handleFinish = async (id) => {
     const token = localStorage.getItem('token');
-    console.log('a', localStorage.getItem('token'));
+    try {
+      const { data } = await axios.put(
+        //'https://recyclanet.herokuapp.com/api/requests',
+        `http://localhost:8080/api/requests/complete/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      console.log(data);
+      callSheet();
+      //
+
+      Toast.fire({
+        icon: 'success',
+        title: 'Request created successfully',
+      });
+    } catch {
+      Toast2.fire({
+        icon: 'error',
+        title: 'Ups an error happend.',
+      });
+    }
+  };
+  const handleClick = async (id) => {
+    const token = localStorage.getItem('token');
     try {
       const { data } = await axios.put(
         //'https://recyclanet.herokuapp.com/api/requests',
@@ -91,6 +118,8 @@ const CardSheet = ({ who }) => {
     }
   };
   useEffect(() => {
+    const { pathname } = Router;
+    console.log('pathname', pathname);
     callSheet();
   }, []);
 
@@ -102,6 +131,11 @@ const CardSheet = ({ who }) => {
       let stringURL = '';
       if (who === 'recycler') {
         stringURL = '/pending';
+        const { pathname } = Router;
+        console.log('pathname', pathname);
+        if (pathname === '/requestprogress') {
+          stringURL = '/progress';
+        }
       } else {
         stringURL = '';
       }
@@ -132,7 +166,7 @@ const CardSheet = ({ who }) => {
         dataCard.map((item) => {
           return (
             <div className="CardSheetContainer" key={item._id}>
-              <Card data={item} id={item._id}></Card>;
+              <Card data={item} id={item._id}></Card>
               {who === 'user' ? (
                 item.state === 'pending' ? (
                   <Button
@@ -157,9 +191,18 @@ const CardSheet = ({ who }) => {
                 >
                   aceptar
                 </Button>
-              ) : (
-                <p>there is no request for the momment</p>
-              )}
+              ) : item.state === 'in_progress' ? (
+                <Button
+                  className="cancelButton"
+                  onClick={() => {
+                    handleFinish(item._id);
+                  }}
+                  variant="gradient"
+                  gradient={{ from: 'teal', to: 'yellow', deg: 125 }}
+                >
+                  confirm recolection
+                </Button>
+              ) : null}
             </div>
           );
         })
