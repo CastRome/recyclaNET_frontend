@@ -55,7 +55,26 @@ const Card = ({ data, id }) => {
         </div>
       </Modal>
       <h2>{`Request:${id}`}</h2>
+      {typeof data.userId === 'undefined' ? null : typeof data.userId[0] ===
+        'undefined' ? null : (
+        <div className="userContainer">
+          <span>
+            <BsPersonCircle />
+          </span>
+          <p>{`${data.userId[0].name} ${data.userId[0].lastname} (${data.userId[0].email})`}</p>
+        </div>
+      )}
 
+      <div className="userContainer">
+        <span>
+          <BsRecycle />
+        </span>
+        {typeof data.recyclerId === 'undefined' ? (
+          <p>not assigned</p>
+        ) : typeof data.recyclerId[0] === 'undefined' ? null : (
+          <p>{`${data.recyclerId[0].name} ${data.recyclerId[0].lastname} (${data.recyclerId[0].email})`}</p>
+        )}
+      </div>
       <div className="MinContainer">
         <label>City:</label>
         <p>{data.city}</p>
@@ -102,26 +121,6 @@ const Card = ({ data, id }) => {
         })}
       </div>
       <Button onClick={open}>See images</Button>
-      {typeof data.userId === 'undefined' ? null : typeof data.userId[0] ===
-        'undefined' ? null : (
-        <div className="MinContainer">
-          <span>
-            <BsPersonCircle />
-          </span>
-          <p>{`${data.userId[0].name} ${data.userId[0].lastname} (${data.userId[0].email})`}</p>
-        </div>
-      )}
-
-      <div className="MinContainer">
-        <span>
-          <BsRecycle />
-        </span>
-        {typeof data.recyclerId === 'undefined' ? (
-          <p>not asing</p>
-        ) : typeof data.recyclerId[0] === 'undefined' ? null : (
-          <p>{`${data.recyclerId[0].name} ${data.recyclerId[0].lastname} (${data.recyclerId[0].email})`}</p>
-        )}
-      </div>
     </div>
   );
 };

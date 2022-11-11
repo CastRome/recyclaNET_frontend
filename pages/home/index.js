@@ -139,8 +139,8 @@ const Home = () => {
           };
 
           const { data } = await axios.post(
-            // 'https://recyclanet.herokuapp.com/auth/local/login',
-            'http://localhost:8080/auth/local/login',
+            'https://recyclanet.herokuapp.com/auth/local/login',
+            // 'http://localhost:8080/auth/local/login',
             user,
           );
 
@@ -179,9 +179,9 @@ const Home = () => {
           };
 
           const { data } = await axios.post(
-            //  'https://recyclanet.herokuapp.com/auth/local/signup',
-            // 'https://airbnbclonetop24.herokuapp.com/user/singin',
-            'http://localhost:8080/auth/local/signup',
+            'https://recyclanet.herokuapp.com/auth/local/signup',
+
+            //'http://localhost:8080/auth/local/signup',
             user,
           );
 

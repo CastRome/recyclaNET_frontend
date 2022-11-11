@@ -37,8 +37,8 @@ const CardSheet = ({ who }) => {
     console.log('a', localStorage.getItem('token'));
     try {
       const { data } = await axios.put(
-        //'https://recyclanet.herokuapp.com/api/requests',
-        `http://localhost:8080/api/requests/aceptar/${id}`,
+        `https://recyclanet.herokuapp.com/api/requests/aceptar/${id}`,
+        // `http://localhost:8080/api/requests/aceptar/${id}`,
         {},
         {
           headers: {
@@ -65,8 +65,8 @@ const CardSheet = ({ who }) => {
     const token = localStorage.getItem('token');
     try {
       const { data } = await axios.put(
-        //'https://recyclanet.herokuapp.com/api/requests',
-        `http://localhost:8080/api/requests/complete/${id}`,
+        `https://recyclanet.herokuapp.com/api/requests/complete/${id}`,
+        //`http://localhost:8080/api/requests/complete/${id}`,
         {},
         {
           headers: {
@@ -93,8 +93,8 @@ const CardSheet = ({ who }) => {
     const token = localStorage.getItem('token');
     try {
       const { data } = await axios.put(
-        //'https://recyclanet.herokuapp.com/api/requests',
-        `http://localhost:8080/api/requests/cancel/${id}`,
+        `https://recyclanet.herokuapp.com/api/requests/cancel/${id}`,
+        //  `http://localhost:8080/api/requests/cancel/${id}`,
         {},
         {
           headers: {
@@ -141,7 +141,8 @@ const CardSheet = ({ who }) => {
       }
       console.log(stringURL);
       const { data } = await axios.get(
-        `http://localhost:8080/api/requests${stringURL}`,
+        `https://recyclanet.herokuapp.com/api/requests${stringURL}`,
+        // `http://localhost:8080/api/requests${stringURL}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

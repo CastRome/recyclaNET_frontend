@@ -4,6 +4,13 @@
 @import './registro.scss';
 @import './cardContainer.scss';
 
+#search {
+  width: 100%;
+  background-color: white;
+  height: 40px;
+  color: black;
+  border: solid 1px lightgray;
+}
 html,
 body {
   padding: 0;

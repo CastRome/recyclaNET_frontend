@@ -23,7 +23,7 @@ const Header = () => {
               alt="Banner de reciclaje"
             ></Image>
           </a>
-          <h1>Bienvenido a reciclaNET</h1>
+          <h1>Welcome to recycleNET</h1>
         </div>
       </div>
     </div>

@@ -21,6 +21,8 @@ import {
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
 import { addrequest } from '../../store/reducer/requestReducer';
+import { SearchBox } from '../../components/searchBox';
+//AIzaSyDADK25rjdH0W0WL0Kr35HJLTfOTG2z6Bk
 const Registro = () => {
   const dispatch = useDispatch();
   const initialMaterials = [
@@ -49,18 +51,22 @@ const Registro = () => {
   const [valueCalendar, setValueCalendar] = useState(null);
   const [token, setToken] = useState('');
 
+  const [address, setAddress] = useState('');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
+
   const { isExpired } = useJwt(token);
 
   const form2 = useForm({
     initialValues: {
       hour: '',
-      direction: '',
+      // direction: '',
       city: '',
     },
 
     validate: {
       hour: (value) => (value !== '' ? null : 'Invalid hour'),
-      direction: (value) => (value !== '' ? null : 'Invalid direction'),
+      //  direction: (value) => (value !== '' ? null : 'Invalid direction'),
       city: (value) => (value !== '' ? null : 'Invalid city'),
     },
   });
@@ -92,7 +98,11 @@ const Registro = () => {
 
     const materials = dataTranser[1].map((item) => item.value);
 
-    if (fileDataURL.length === 0 || materials.length === 0) {
+    if (
+      fileDataURL.length === 0 ||
+      materials.length === 0 ||
+      address.length === 0
+    ) {
       Toast2.fire({
         icon: 'error',
         title: 'Please complete the information.',
@@ -105,7 +115,7 @@ const Registro = () => {
     const dataValues = new FormData();
 
     dataValues.append('hour', values.hour);
-    dataValues.append('direction', values.direction);
+    dataValues.append('direction', address);
     dataValues.append('city', values.city);
     dataValues.append('date', date);
     dataValues.append('materials', materials);
@@ -119,8 +129,8 @@ const Registro = () => {
 
     try {
       const { data } = await axios.post(
-        //'https://recyclanet.herokuapp.com/api/requests',
-        'http://localhost:8080/api/requests',
+        'https://recyclanet.herokuapp.com/api/requests',
+        //'http://localhost:8080/api/requests',
         dataValues,
         {
           headers: {
@@ -213,11 +223,29 @@ const Registro = () => {
             data={['Barranquilla', 'Bogota', 'Cali', 'Medellin']}
             {...form2.getInputProps('city')}
           />
-          <TextInput
+          {/* <TextInput
+            disabled={true}
             withAsterisk
             label="Direction"
             placeholder="false street 123"
             {...form2.getInputProps('direction')}
+          /> */}
+          <label htmlFor="search" className="hostform__label">
+            Direction *
+          </label>
+          <SearchBox
+            onSelectAddress={(address, latitude, longitude) => {
+              const str = address
+                .normalize('NFD')
+                .replace(/\p{Diacritic}/gu, '')
+                .replaceAll(',', '');
+              setAddress(str);
+
+              setLatitude(latitude);
+              setLongitude(longitude);
+              console.log(str, latitude, longitude);
+            }}
+            defaultValue=""
           />
           <TransferList
             value={dataTranser}
