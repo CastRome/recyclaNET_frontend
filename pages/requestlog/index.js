@@ -5,7 +5,7 @@ import Router from 'next/router';
 const requestLog = () => {
   const handleBack = () => {
     const { pathname } = Router;
-    Router.push('/home');
+    Router.push('/');
   };
   return (
     <div>

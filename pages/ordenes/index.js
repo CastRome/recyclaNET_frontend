@@ -13,26 +13,39 @@ const Orders = (props) => {
     Router.push('/requestlog');
     //
   };
+  const handleBack = () => {
+    const { pathname } = Router;
+    Router.push('/');
+  };
   return (
     <div>
       <Header />
       {dataRequest.data ? (
         <div>
+          <Button.Group>
+            <Button
+              variant="gradient"
+              gradient={{ from: 'teal', to: 'blue', deg: 105 }}
+              type="button"
+              onClick={() => {
+                handleRedirect();
+              }}
+            >
+              go to my request
+            </Button>
+            <Button
+              onClick={() => {
+                handleBack();
+              }}
+              variant="gradient"
+              gradient={{ from: 'teal', to: 'blue', deg: 105 }}
+              type="button"
+            >
+              Back
+            </Button>
+          </Button.Group>
           <Card data={dataRequest.data.data} id={dataRequest.data.id} />
-          <div className="ButtonContainer">
-            <Button.Group>
-              <Button
-                variant="gradient"
-                gradient={{ from: 'teal', to: 'blue', deg: 105 }}
-                type="button"
-                onClick={() => {
-                  handleRedirect();
-                }}
-              >
-                go to my request
-              </Button>
-            </Button.Group>
-          </div>
+          <div className="ButtonContainer"></div>
           <Footer></Footer>
         </div>
       ) : (

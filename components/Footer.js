@@ -1,8 +1,15 @@
+import Link from 'next/link';
+
 const Footer = () => {
   return (
-    <div className="footerContainer">
-      <p>placeholder</p>
-    </div>
+    <footer className="footerContainer">
+      <p>
+        RecycleNET was develop by Ruben Dario Castilla Romero 11/2022
+        rcastrome@gmail.com
+      </p>
+      <Link href="https://linkedin.com/in/CastRome">Linkedin - CastRome</Link>
+      <Link href="https://github.com/CastRome"> GitHub - CastRome</Link>
+    </footer>
   );
 };
 export default Footer;
