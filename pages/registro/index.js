@@ -1,5 +1,12 @@
 import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import { BsNewspaper } from 'react-icons/bs';
+import { CiGlass } from 'react-icons/ci';
+import {
+  GiMetalBar,
+  GiCardboardBoxClosed,
+  GiPlasticDuck,
+} from 'react-icons/gi';
+import { FaBlenderPhone } from 'react-icons/fa';
 import axios from 'axios';
 import { useJwt } from 'react-jwt';
 import { useState, useEffect } from 'react';
@@ -8,22 +15,21 @@ import { Calendar } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import Router from 'next/router';
 import {
-  Popover,
-  TextInput,
-  PasswordInput,
   Group,
   Button,
-  Radio,
+  Modal,
   TransferList,
   Select,
   Image,
 } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
 import { addrequest } from '../../store/reducer/requestReducer';
 import { SearchBox } from '../../components/searchBox';
 //AIzaSyDADK25rjdH0W0WL0Kr35HJLTfOTG2z6Bk
 const Registro = () => {
+  const [opened, { close, open }] = useDisclosure(false);
   const dispatch = useDispatch();
   const initialMaterials = [
     [
@@ -38,9 +44,6 @@ const Registro = () => {
   ];
 
   useEffect(() => {
-    // const isSSR = typeof window === "undefined";
-    // console.log(isSSR);
-    console.log('I am only being executed in the browser');
     setFile(new DataTransfer());
     setToken(localStorage.getItem('token'));
   }, []);
@@ -183,10 +186,48 @@ const Registro = () => {
       }),
     );
   };
-
+  const handleBack = () => {
+    const { pathname } = Router;
+    Router.push('/');
+  };
   return (
     <div>
       <Header />
+      <Modal
+        opened={opened}
+        onClose={close}
+        size="auto"
+        withCloseButton={false}
+      >
+        <div className="ModalMaterials">
+          <BsNewspaper />
+          <span>Paper</span>
+          <p>
+            Newspaper, envelopes,file folders, post-it notes Mail, magazines,
+            mixed paper, bags, cups, Phone books.
+          </p>
+          <GiCardboardBoxClosed />
+          <span>Cardboard</span>
+          <p>Paper , boards, juice boxes, tetra paks, box. </p>
+          <CiGlass />
+          <span>Glass</span>
+          <p>Bottles, jar, No plate or pyrex glass. </p>
+          <GiPlasticDuck />
+          <span>Plastics</span>
+          <p>
+            Bottles, food containers, trays, dairy tubs, cups, plant pots,
+            buckets.
+          </p>
+          <GiMetalBar />
+          <span>Metal</span>
+          <p>
+            Aluminum cans, Aluminum foil, pie tins,Tin cans,Ferrous scrap metal.
+          </p>
+          <FaBlenderPhone />
+          <span>Electronics</span>
+          <p>Mobile Phones, electrodomestics, printers, pcs.</p>
+        </div>
+      </Modal>
       <div className="SolicitudContainer">
         <h2>Create your request</h2>
         <form onSubmit={form2.onSubmit((values) => handleSubmit(values, 2))}>
@@ -247,6 +288,7 @@ const Registro = () => {
             }}
             defaultValue=""
           />
+
           <TransferList
             value={dataTranser}
             onChange={setDataTransfer}
@@ -255,6 +297,14 @@ const Registro = () => {
             titles={['Recycable materials', 'Selected materials']}
             breakpoint="sm"
           />
+          <Button
+            type="Button"
+            onClick={open}
+            variant="gradient"
+            gradient={{ from: 'blue', to: 'teal', deg: 105 }}
+          >
+            See materials expamples
+          </Button>
           <div className="hostform__setmargin">
             Please add photos of the materials
           </div>
@@ -298,7 +348,7 @@ const Registro = () => {
                 variant="gradient"
                 gradient={{ from: 'red', to: 'red' }}
                 onClick={() => {
-                  handleCancel(2);
+                  handleBack();
                 }}
               >
                 Cancel

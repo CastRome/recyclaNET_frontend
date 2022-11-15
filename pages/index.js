@@ -38,6 +38,10 @@ const Home = () => {
     const { pathname } = Router;
     Router.push('/registro');
   };
+  const handleSolicitudAbout = () => {
+    const { pathname } = Router;
+    Router.push('/about');
+  };
   const handleTakeSolicitud = () => {
     const { pathname } = Router;
     Router.push('/requestacept');
@@ -140,7 +144,7 @@ const Home = () => {
 
           const { data } = await axios.post(
             'https://recyclanet.herokuapp.com/auth/local/login',
-            // 'http://localhost:8080/auth/local/login',
+            //'http://localhost:8080/auth/local/login',
             user,
           );
 
@@ -481,19 +485,27 @@ const Home = () => {
           )}
         </div>
         <div className="ItemInfo">
-          <h2>Información general </h2>
+          <h2>What is it? </h2>
+
           <p>
-            que es reciclaNEET: la idea es.... Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Nunc id cursus metus aliquam
-            eleifend. Purus in massa tempor nec feugiat nisl pretium fusce. Sed
-            nisi lacus sed viverra tellus in hac habitasse. Volutpat ac
-            tincidunt vitae semper quis. Fames ac turpis egestas integer eget
-            aliquet nibh. Ridiculus mus mauris vitae ultricies leo integer.
-            Massa massa ultricies mi quis hendrerit dolor magna. Dignissim diam
-            quis enim lobortis scelerisque fermentum. A pellentesque sit amet
-            porttitor eget dolor morbi.
+            It’s a platform to facilitate the utilization of domestic solid
+            waste. If you have waste at home that can be recycled, just separate
+            them from the rest of the trash and create a request so that other
+            users can pick them up from your home and use or dispose them
+            correctly. Likewise, other users can see the active requests and
+            select the ones that interest them, thus, creating a utilization
+            circle, just as simple as that.
           </p>
+          <Button
+            variant="gradient"
+            gradient={{ from: 'teal', to: 'gray', deg: 105 }}
+            type="submit"
+            onClick={() => {
+              handleSolicitudAbout();
+            }}
+          >
+            About
+          </Button>
         </div>
         <div className="ItemCarousel">
           <Carousel

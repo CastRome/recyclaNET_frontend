@@ -162,7 +162,7 @@ const CardSheet = ({ who }) => {
   return (
     <div>
       {loading ? (
-        <p>please stand by</p>
+        <p className="loading">please stand by</p>
       ) : (
         dataCard.map((item) => {
           return (

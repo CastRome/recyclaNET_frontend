@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className="footerContainer">
       <p>
-        RecycleNET was develop by Ruben Dario Castilla Romero 11/2022
+        RecycleNET was developed by Ruben Dario Castilla Romero 11/2022
         rcastrome@gmail.com
       </p>
       <Link href="https://linkedin.com/in/CastRome">Linkedin - CastRome</Link>
