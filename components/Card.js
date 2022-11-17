@@ -70,8 +70,10 @@ const Card = ({ data, id }) => {
           <BsRecycle />
         </span>
         {typeof data.recyclerId === 'undefined' ? (
-          <p>not assigned</p>
-        ) : typeof data.recyclerId[0] === 'undefined' ? null : (
+          <p>Not assigned</p>
+        ) : typeof data.recyclerId[0] === 'undefined' ? (
+          <p>Not assigned</p>
+        ) : (
           <p>{`${data.recyclerId[0].name} ${data.recyclerId[0].lastname} (${data.recyclerId[0].email})`}</p>
         )}
       </div>

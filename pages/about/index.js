@@ -75,15 +75,15 @@ const About = () => {
           <BsNewspaper />
           <span>Paper</span>
           <p>
-            Newspaper, envelopes,file folders, post-it notes Mail, magazines,
-            mixed paper, bags, cups, Phone books.
+            Newspaper, envelopes, file folders, post-it notes, mail, magazines,
+            mixed paper, bags, cups, phone books.
           </p>
           <GiCardboardBoxClosed />
           <span>Cardboard</span>
-          <p>Paper , boards, juice boxes, tetra paks, box. </p>
+          <p>Paper, boards, juice boxes, tetra paks, box. </p>
           <CiGlass />
           <span>Glass</span>
-          <p>Bottles, jar, No plate or pyrex glass. </p>
+          <p>Bottles, jar, no plate or pyrex glass. </p>
           <GiPlasticDuck />
           <span>Plastics</span>
           <p>
@@ -93,7 +93,8 @@ const About = () => {
           <GiMetalBar />
           <span>Metal</span>
           <p>
-            Aluminum cans, Aluminum foil, pie tins,Tin cans,Ferrous scrap metal.
+            Aluminum cans, aluminum foil, pie tins, tin cans, ferrous scrap
+            metal.
           </p>
           <FaBlenderPhone />
           <span>Electronics</span>

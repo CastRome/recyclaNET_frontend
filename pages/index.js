@@ -191,7 +191,7 @@ const Home = () => {
 
           Toast.fire({
             icon: 'success',
-            title: 'singed up successfully',
+            title: 'signed up successfully',
           });
           localStorage.setItem('token', data.data.token);
           localStorage.setItem('role', data.data.role);
@@ -257,7 +257,7 @@ const Home = () => {
                     variant="gradient"
                     gradient={{ from: 'teal', to: 'blue', deg: 105 }}
                   >
-                    Sing up
+                    Sign up
                   </Button>
                 </Popover.Target>
                 <Popover.Dropdown

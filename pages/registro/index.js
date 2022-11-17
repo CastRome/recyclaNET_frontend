@@ -33,9 +33,9 @@ const Registro = () => {
   const dispatch = useDispatch();
   const initialMaterials = [
     [
-      { value: 'paper', label: 'Paper' },
-      { value: 'cardboard', label: 'Cardboard' },
-      { value: 'glass', label: 'Glass' },
+      { value: 'Paper', label: 'Paper' },
+      { value: 'Cardboard', label: 'Cardboard' },
+      { value: 'Glass', label: 'Glass' },
       { value: 'Plastics', label: 'Plastics' },
       { value: 'Metal', label: 'Metal' },
       { value: 'Electronics', label: 'Electronics' },
@@ -203,15 +203,15 @@ const Registro = () => {
           <BsNewspaper />
           <span>Paper</span>
           <p>
-            Newspaper, envelopes,file folders, post-it notes Mail, magazines,
-            mixed paper, bags, cups, Phone books.
+            Newspaper, envelopes,file folders, post-it notes mail, magazines,
+            mixed paper, bags, cups, phone books.
           </p>
           <GiCardboardBoxClosed />
           <span>Cardboard</span>
           <p>Paper , boards, juice boxes, tetra paks, box. </p>
           <CiGlass />
           <span>Glass</span>
-          <p>Bottles, jar, No plate or pyrex glass. </p>
+          <p>Bottles, jar, no plate or pyrex glass. </p>
           <GiPlasticDuck />
           <span>Plastics</span>
           <p>
@@ -221,7 +221,8 @@ const Registro = () => {
           <GiMetalBar />
           <span>Metal</span>
           <p>
-            Aluminum cans, Aluminum foil, pie tins,Tin cans,Ferrous scrap metal.
+            Aluminum cans, aluminum foil, pie tins, tin cans, ferrous scrap
+            metal.
           </p>
           <FaBlenderPhone />
           <span>Electronics</span>

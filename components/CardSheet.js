@@ -162,7 +162,7 @@ const CardSheet = ({ who }) => {
   return (
     <div>
       {loading ? (
-        <p className="loading">please stand by</p>
+        <p className="loading">Please stand by</p>
       ) : (
         dataCard.map((item) => {
           return (
@@ -178,7 +178,7 @@ const CardSheet = ({ who }) => {
                     variant="gradient"
                     gradient={{ from: 'red', to: 'red', deg: 105 }}
                   >
-                    cancelar
+                    Cancel
                   </Button>
                 ) : null
               ) : item.state === 'pending' ? (
@@ -190,7 +190,7 @@ const CardSheet = ({ who }) => {
                   variant="gradient"
                   gradient={{ from: 'teal', to: 'blue', deg: 105 }}
                 >
-                  aceptar
+                  Accept
                 </Button>
               ) : item.state === 'in_progress' ? (
                 <Button
@@ -201,7 +201,7 @@ const CardSheet = ({ who }) => {
                   variant="gradient"
                   gradient={{ from: 'teal', to: 'yellow', deg: 125 }}
                 >
-                  confirm recolection
+                  Confirm pick up
                 </Button>
               ) : null}
             </div>
