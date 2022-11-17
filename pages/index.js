@@ -433,7 +433,7 @@ const Home = () => {
                       handleSolicitudLog();
                     }}
                   >
-                    my Request
+                    My Request
                   </Button>
                   <Button
                     variant="gradient"
@@ -479,7 +479,7 @@ const Home = () => {
                   handleLoggout();
                 }}
               >
-                logout
+                Logout
               </Button>
             </div>
           )}
